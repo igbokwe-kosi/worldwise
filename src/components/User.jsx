@@ -1,16 +1,19 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/FakeAuthContext";
 import styles from "./User.module.css";
 
-const FAKE_USER = {
-  name: "Jack",
-  email: "jack@example.com",
-  password: "qwerty",
-  avatar: "https://i.pravatar.cc/100?u=zz",
-};
-
 function User() {
-  const user = FAKE_USER;
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  function handleClick() {}
+  function handleClick() {
+    logout();
+    navigate("/");
+  }
+
+  if (user === null) {
+    return null;
+  }
 
   return (
     <div className={styles.user}>
@@ -23,7 +26,7 @@ function User() {
 
 export default User;
 
-/*
+/* 
 CHALLENGE
 
 1) Add `AuthProvider` to `App.jsx`
